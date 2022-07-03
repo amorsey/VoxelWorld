@@ -8,7 +8,7 @@ public class Chunk : MonoBehaviour {
     byte[,,] voxelMap = new byte[VoxelData.ChunkWidth, VoxelData.ChunkHeight, VoxelData.ChunkWidth];
 
     void Start () {
-        world = GameObject.Find("World").GetComponent<World>();
+        // world = GameObject.Find("World").GetComponent<World>();
 
         // Define the chunk content
         voxelMap = PopulateVoxelMap(voxelMap);
@@ -18,7 +18,7 @@ public class Chunk : MonoBehaviour {
         meshFilter.mesh = mesh;
     }
 
-    bool[,,] PopulateVoxelMap(bool[,,] vMap) {
+    byte[,,] PopulateVoxelMap(byte[,,] vMap) {
         // Loop through each voxel in the chunk
         for (int y = 0; y < VoxelData.ChunkHeight; y++){
             for (int x = 0; x < VoxelData.ChunkWidth; x++){
@@ -30,7 +30,7 @@ public class Chunk : MonoBehaviour {
         return vMap;
     }
 
-    bool checkVoxel(Vector3 position, bool[,,] vMap){
+    bool checkVoxel(Vector3 position, byte[,,] vMap){
         int x = Mathf.FloorToInt(position.x);
         int y = Mathf.FloorToInt(position.y);
         int z = Mathf.FloorToInt(position.z);
@@ -43,11 +43,11 @@ public class Chunk : MonoBehaviour {
         if (xCheck || yCheck || zCheck){
             return false;
         } else {
-            return vMap[x, y, z];
+            return true; //vMap[x, y, z];
         }
     }
 
-    Mesh CreateChunkMesh(bool[,,] vMap){
+    Mesh CreateChunkMesh(byte[,,] vMap){
         int vertexIndex = 0;
         List<Vector3> vertices = new List<Vector3>();
         List<int> triangles = new List<int>();
